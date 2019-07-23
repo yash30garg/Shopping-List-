@@ -3,35 +3,29 @@ import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import uuid from "uuid";
 import { connect } from "react-redux";
-import { getItems ,deleteItem ,addItem } from "../actions/itemAction";
+import { getItems ,deleteItem  } from "../actions/itemAction";
 import PropTypes from "prop-types";
 
 class ShoppingList extends Component {
   componentDidMount() {
     const { getItems } = this.props;
 
+    //getting the initial state items via getItems action
     getItems();
   }
 
   onDelete = (id) => {
+
+    //deleteItem action
    this.props.deleteItem(id)
   }
  
   render() {
     const { items } = this.props.item;
-    const {addItem} = this.props;
+    
     return (
       <Container>
-        <Button
-          color='dark'
-          style={{ marginBottom: "2rem" }}
-          onClick={() => {
-            const name = prompt("Enter Item");
-            addItem(name);
-          }}
-        >
-          Add Item
-        </Button>
+  
 
         <ListGroup>
           <TransitionGroup className='shopping-list'>
@@ -69,5 +63,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getItems , deleteItem ,addItem }
+  { getItems , deleteItem }
 )(ShoppingList);
